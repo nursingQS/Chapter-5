@@ -1,0 +1,1751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pediatric Nursing Flashcards - Chapter 5: Pain Assessment & Management</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffccbc 0%, #ffab91 100%);
+            min-height: 100vh;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            height: 96vh;
+            background: #fff8f5;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(188, 170, 164, 0.4);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 3px solid #ff7043;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #d84315, #ff5722);
+            color: white;
+            padding: 12px 15px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.1"><path d="M50,20 Q70,30 80,50 Q70,70 50,80 Q30,70 20,50 Q30,30 50,20 Z" fill="white"/><circle cx="50" cy="50" r="15" fill="white"/><path d="M40,35 L60,35 L60,65 L40,65 Z" fill="white"/><polygon points="50,20 60,40 50,50 40,40" fill="white"/></svg>');
+            background-size: 80px 80px;
+        }
+        
+        .header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 4px;
+            position: relative;
+            color: #ffecb3;
+            line-height: 1.2;
+        }
+        
+        .header .subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            position: relative;
+            color: #ffe0b2;
+            margin-bottom: 8px;
+        }
+        
+        .progress {
+            background: #d84315;
+            height: 6px;
+            width: 100%;
+            flex-shrink: 0;
+            border-radius: 0 0 5px 5px;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, #ff8a65, #ff7043);
+            height: 100%;
+            width: 0%;
+            transition: width 0.4s ease;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .section-nav {
+            display: flex;
+            gap: 6px;
+            padding: 8px 10px;
+            background: linear-gradient(135deg, #e64a19, #d84315);
+            border-bottom: 1px solid #ff8a65;
+            flex-shrink: 0;
+            overflow-x: auto;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .section-btn {
+            padding: 5px 10px;
+            border: 2px solid #ff8a65;
+            background: rgba(255, 255, 255, 0.95);
+            color: #d84315;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            flex-shrink: 0;
+            min-width: 120px;
+            text-align: center;
+        }
+        
+        .section-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(255, 138, 101, 0.4);
+        }
+        
+        .section-btn.active {
+            background: linear-gradient(135deg, #ff8a65, #ff5722);
+            color: white;
+            border-color: #d84315;
+            box-shadow: 0 6px 12px rgba(255, 138, 101, 0.5);
+        }
+        
+        .flashcard {
+            padding: 12px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #fff8f5;
+            overflow: hidden;
+            min-height: 0;
+        }
+        
+        .question-container {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            background: white;
+            padding: 12px;
+            border-radius: 10px;
+            border-left: 6px solid #ff8a65;
+            box-shadow: 0 4px 8px rgba(188, 170, 164, 0.2);
+            flex-shrink: 0;
+        }
+        
+        .question-icon {
+            background: linear-gradient(135deg, #d84315, #ff8a65);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            box-shadow: 0 4px 8px rgba(216, 67, 21, 0.4);
+        }
+        
+        .question {
+            font-size: 0.9rem;
+            line-height: 1.4;
+            color: #4e342e;
+            flex-grow: 1;
+            font-weight: 500;
+            overflow-wrap: break-word;
+            hyphens: auto;
+        }
+        
+        .multiple-select-indicator {
+            background: #c62828;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-left: 6px;
+            white-space: nowrap;
+            box-shadow: 0 3px 6px rgba(198, 40, 40, 0.3);
+            flex-shrink: 0;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 8px;
+            flex: 1;
+            overflow: hidden;
+            min-height: 0;
+        }
+        
+        .option {
+            padding: 8px 10px;
+            border: 2px solid #d7ccc8;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.85rem;
+            line-height: 1.3;
+            flex-shrink: 0;
+            min-height: 45px;
+        }
+        
+        .option:hover {
+            background: #ffecb3;
+            border-color: #ffb74d;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(255, 183, 77, 0.2);
+        }
+        
+        .option-letter {
+            background: #ffe0b2;
+            color: #d84315;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+            border: 2px solid #ffcc80;
+        }
+        
+        /* CORRECT - ALWAYS GREEN */
+        .option.correct {
+            background: #c8e6c9;
+            border-color: #388e3c;
+            color: #1b5e20;
+        }
+        
+        .option.correct .option-letter {
+            background: #388e3c;
+            color: white;
+            border-color: #388e3c;
+        }
+        
+        /* INCORRECT - ALWAYS RED */
+        .option.incorrect {
+            background: #ffcdd2;
+            border-color: #d32f2f;
+            color: #b71c1c;
+        }
+        
+        .option.incorrect .option-letter {
+            background: #d32f2f;
+            color: white;
+            border-color: #d32f2f;
+        }
+        
+        .option.selected {
+            background: #ffecb3;
+            border-color: #ffb74d;
+            color: #d84315;
+        }
+        
+        .option.selected .option-letter {
+            background: #ffb74d;
+            color: #5d4037;
+            border-color: #ff8a65;
+        }
+        
+        .feedback {
+            padding: 8px 10px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+        
+        .feedback.correct {
+            background: #c8e6c9;
+            border: 3px solid #388e3c;
+            color: #1b5e20;
+            display: flex;
+        }
+        
+        .feedback.incorrect {
+            background: #ffcdd2;
+            border: 3px solid #d32f2f;
+            color: #b71c1c;
+            display: flex;
+        }
+        
+        .feedback-icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            background: #ffe0b2;
+            border-top: 2px solid #ffcc80;
+            flex-shrink: 0;
+            gap: 8px;
+        }
+        
+        .counter {
+            font-weight: bold;
+            color: #d84315;
+            font-size: 0.9rem;
+            background: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            border: 2px solid #ff8a65;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+        
+        .btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #d84315, #ff8a65);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(216, 67, 21, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #ff5722, #d84315);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(255, 87, 34, 0.4);
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, #ffb300, #ff8f00);
+            color: #212529;
+        }
+        
+        .btn-warning:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(255, 179, 0, 0.4);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #c62828, #b71c1c);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(198, 40, 40, 0.4);
+        }
+        
+        .rationale {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border: 3px solid #ffb300;
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 8px;
+            display: none;
+            box-shadow: 0 4px 12px rgba(255, 179, 0, 0.2);
+            flex-shrink: 0;
+            overflow: hidden;
+            max-height: 120px;
+        }
+        
+        .rationale.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+        
+        .rationale h4 {
+            color: #ff8f00;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+        }
+        
+        .rationale p {
+            color: #856404;
+            line-height: 1.4;
+            font-size: 0.8rem;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .stats {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            margin-top: 4px;
+            flex-wrap: wrap;
+            flex-shrink: 0;
+        }
+        
+        .stat {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            white-space: nowrap;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .cancel-selection {
+            background: linear-gradient(135deg, #c62828, #b71c1c);
+            color: white;
+            margin: 0 auto 8px auto;
+            display: none;
+            box-shadow: 0 4px 10px rgba(198, 40, 40, 0.3);
+            flex-shrink: 0;
+        }
+        
+        .cancel-selection:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(198, 40, 40, 0.4);
+        }
+        
+        .cancel-selection.show {
+            display: flex;
+        }
+        
+        .multiple-select-instructions {
+            text-align: center;
+            color: #c62828;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.8rem;
+            background: #fff3cd;
+            padding: 6px;
+            border-radius: 8px;
+            border: 2px solid #ffeaa7;
+            flex-shrink: 0;
+        }
+        
+        .matching-container {
+            background: linear-gradient(135deg, #fff8f5, #ffecb3);
+            border-radius: 8px;
+            padding: 10px;
+            border: 2px solid #d7ccc8;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            min-height: 0;
+        }
+        
+        .matching-question {
+            font-size: 0.85rem;
+            color: #4e342e;
+            font-weight: 500;
+            margin-bottom: 10px;
+            padding: 8px;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid #d7ccc8;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            max-height: 3em;
+            flex-shrink: 0;
+        }
+        
+        .matching-options {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 5px;
+            overflow: hidden;
+            padding: 2px;
+            min-height: 0;
+        }
+        
+        .matching-option {
+            padding: 8px;
+            border: 2px dashed #ffab91;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #ff5722;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 40px;
+            overflow: hidden;
+            line-height: 1.2;
+        }
+        
+        .matching-option:hover {
+            background: #ffecb3;
+            border-style: solid;
+            border-color: #ff8a65;
+        }
+        
+        .matching-option.correct {
+            background: linear-gradient(135deg, #c8e6c9, #a5d6a7);
+            border-color: #388e3c;
+            border-style: solid;
+            color: #1b5e20;
+        }
+        
+        .matching-option.incorrect {
+            background: linear-gradient(135deg, #ffcdd2, #ef9a9a);
+            border-color: #d32f2f;
+            border-style: solid;
+            color: #b71c1c;
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+        }
+        
+        /* Remove all scrollbars */
+        .options,
+        .matching-options,
+        .rationale,
+        .container,
+        .flashcard,
+        body {
+            overflow: hidden !important;
+            -ms-overflow-style: none !important;
+            scrollbar-width: none !important;
+        }
+        
+        .options::-webkit-scrollbar,
+        .matching-options::-webkit-scrollbar,
+        .rationale::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                height: 98vh;
+            }
+            
+            .section-btn {
+                min-width: 100px;
+                font-size: 0.7rem;
+                padding: 4px 8px;
+            }
+            
+            .matching-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                padding: 10px 12px;
+            }
+            
+            .header h1 {
+                font-size: 1.2rem;
+            }
+            
+            .navigation {
+                padding: 8px 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 6px;
+            }
+            
+            .counter {
+                order: -1;
+                width: 100%;
+                text-align: center;
+                margin-bottom: 4px;
+                font-size: 0.8rem;
+            }
+            
+            .btn {
+                padding: 6px 10px;
+                font-size: 0.75rem;
+            }
+            
+            .question {
+                font-size: 0.85rem;
+            }
+            
+            .option {
+                font-size: 0.8rem;
+                padding: 6px 8px;
+                min-height: 40px;
+            }
+            
+            .question-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+            
+            .option-letter {
+                width: 22px;
+                height: 22px;
+                font-size: 0.75rem;
+            }
+        }
+        
+        @media (max-height: 700px) {
+            .container {
+                height: 99vh;
+            }
+            
+            .header {
+                padding: 8px 10px;
+            }
+            
+            .header h1 {
+                font-size: 1.1rem;
+            }
+            
+            .header .subtitle {
+                font-size: 0.8rem;
+            }
+            
+            .question-container {
+                padding: 10px;
+                margin-bottom: 6px;
+            }
+            
+            .question {
+                font-size: 0.8rem;
+                line-height: 1.3;
+            }
+            
+            .option {
+                padding: 6px 8px;
+                min-height: 35px;
+                font-size: 0.75rem;
+            }
+            
+            .navigation {
+                padding: 6px 8px;
+            }
+            
+            .rationale {
+                max-height: 80px;
+                padding: 8px;
+            }
+            
+            .feedback {
+                padding: 6px 8px;
+                font-size: 0.75rem;
+            }
+            
+            .option-letter {
+                width: 20px;
+                height: 20px;
+                font-size: 0.7rem;
+            }
+            
+            .stats {
+                display: none;
+            }
+        }
+        
+        @media (max-height: 600px) {
+            .question-container {
+                padding: 8px;
+            }
+            
+            .question-icon {
+                width: 30px;
+                height: 30px;
+                font-size: 0.8rem;
+            }
+            
+            .option {
+                min-height: 30px;
+                padding: 4px 6px;
+                font-size: 0.7rem;
+            }
+            
+            .option-letter {
+                width: 18px;
+                height: 18px;
+                font-size: 0.65rem;
+            }
+            
+            .btn {
+                padding: 5px 8px;
+                font-size: 0.7rem;
+            }
+            
+            .rationale {
+                max-height: 60px;
+                padding: 6px;
+            }
+            
+            .rationale p {
+                font-size: 0.7rem;
+                line-height: 1.3;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏥 Chapter 05: Pain Assessment and Management in Children</h1>
+            <div class="subtitle">Comfort Care Theme - Warm & Supportive Pediatric Environment</div>
+            <div class="stats">
+                <div class="stat">📚 31 Questions</div>
+                <div class="stat">🎯 Immediate Feedback</div>
+                <div class="stat">✅ Green/Red System</div>
+                <div class="stat">🔄 Multiple Question Types</div>
+            </div>
+        </div>
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        
+        <div class="section-nav">
+            <button class="section-btn active" onclick="setSection('multiple-choice')">Multiple Choice (20)</button>
+            <button class="section-btn" onclick="setSection('multiple-response')">Multiple Response (4)</button>
+            <button class="section-btn" onclick="setSection('matching')">Matching (5)</button>
+            <button class="section-btn" onclick="setSection('completion')">Completion (11)</button>
+            <button class="section-btn" onclick="setSection('all')">All Mixed (40)</button>
+        </div>
+        
+        <div class="flashcard">
+            <div class="question-container">
+                <div class="question-icon" id="questionNumber">1</div>
+                <div class="question" id="question"></div>
+                <div class="multiple-select-indicator" id="multipleSelectIndicator" style="display: none;">Multiple Answers</div>
+            </div>
+            
+            <div class="multiple-select-instructions" id="multipleSelectInstructions" style="display: none;">
+                💡 Select ALL correct answers
+            </div>
+            
+            <div class="options" id="options"></div>
+            
+            <div class="matching-container" id="matchingContainer" style="display: none;">
+                <div class="matching-question" id="matchingQuestion"></div>
+                <div class="matching-options" id="matchingOptions"></div>
+            </div>
+            
+            <button class="btn cancel-selection" id="cancelBtn" onclick="cancelSelection()">
+                🔄 Reset
+            </button>
+            
+            <div class="feedback" id="feedback">
+                <div class="feedback-icon" id="feedbackIcon"></div>
+                <div id="feedbackText"></div>
+            </div>
+            <div class="rationale" id="rationale">
+                <h4>💡 Rationale:</h4>
+                <p id="rationaleText"></p>
+            </div>
+        </div>
+        
+        <div class="navigation">
+            <button class="btn btn-secondary" id="prevBtn" onclick="previousCard()">
+                ⬅️ Prev
+            </button>
+            <div class="counter" id="counter">1/20</div>
+            <button class="btn btn-warning" id="submitBtn" onclick="submitAnswer()" style="display: none;">
+                ✅ Submit
+            </button>
+            <button class="btn btn-primary" id="nextBtn" onclick="nextCard()">
+                Next ➡️
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Chapter 5 Data - Pain Assessment and Management in Children
+        const sections = {
+            'multiple-choice': [
+                {
+                    question: "Which is the most consistent and commonly used data for assessment of pain in infants?",
+                    options: ["Self-report", "Behavioral", "Physiologic", "Parental report"],
+                    correct: 1,
+                    rationale: "Behavioral assessment is useful for measuring pain in young children and preverbal children who do not have the language skills to communicate that they are in pain."
+                },
+                {
+                    question: "Children as young as age 3 years can use facial scales for discrimination. What are some suggested anchor words for the preschool age group?",
+                    options: ["\"No hurt.\"", "\"Red pain.\"", "\"Zero hurt.\"", "\"Least pain.\""],
+                    correct: 0,
+                    rationale: "\"No hurt\" is a phrase that is simple, concrete, and appropriate to the preoperational stage of the child."
+                },
+                {
+                    question: "What is an important consideration when using the FACES pain rating scale with children?",
+                    options: [
+                        "Children color the face with the color they choose to best describe their pain.",
+                        "The scale can be used with most children as young as 3 years.",
+                        "The scale is not appropriate for use with adolescents.",
+                        "The FACES scale is useful in pain assessment but is not as accurate as physiologic responses."
+                    ],
+                    correct: 1,
+                    rationale: "The FACES scale is validated for use with children ages 3 years and older."
+                },
+                {
+                    question: "What describes nonpharmacologic techniques for pain management?",
+                    options: [
+                        "They may reduce pain perception.",
+                        "They usually take too long to implement.",
+                        "They make pharmacologic strategies unnecessary.",
+                        "They trick children into believing they do not have pain."
+                    ],
+                    correct: 0,
+                    rationale: "Nonpharmacologic techniques provide coping strategies that may help reduce pain perception."
+                },
+                {
+                    question: "Which nonpharmacologic intervention appears to be effective in decreasing neonatal procedural pain?",
+                    options: [
+                        "Tactile stimulation",
+                        "Commercial warm packs",
+                        "Doing procedure during infant sleep",
+                        "Oral sucrose and nonnutritive sucking"
+                    ],
+                    correct: 3,
+                    rationale: "Nonnutritive sucking attenuates behavioral, physiologic, and hormonal responses to pain. The addition of sucrose has been demonstrated to have calming and pain-relieving effects for neonates."
+                },
+                {
+                    question: "A 6-year-old child has patient-controlled analgesia (PCA) for pain management after orthopedic surgery. The parents are worried that their child will be in pain. What should your explanation to the parents include?",
+                    options: [
+                        "The child will continue to sleep and be pain free.",
+                        "Parents cannot administer additional medication with the button.",
+                        "The pump can deliver baseline and bolus dosages.",
+                        "There is a high risk of overdose, so monitoring is done every 15 minutes."
+                    ],
+                    correct: 2,
+                    rationale: "The PCA prescription can be set for a basal rate for a continuous infusion of pain medication. Additional doses can be administered by the patient, parent, or nurse as necessary."
+                },
+                {
+                    question: "Which drug is usually the best choice for patient-controlled analgesia (PCA) for a child in the immediate postoperative period?",
+                    options: [
+                        "Codeine sulfate (Codeine)",
+                        "Morphine (Roxanol)",
+                        "Methadone (Dolophine)",
+                        "Meperidine (Demerol)"
+                    ],
+                    correct: 1,
+                    rationale: "The most commonly prescribed medications for PCA are morphine, hydromorphone, and fentanyl."
+                },
+                {
+                    question: "A child is in the intensive care unit after a motor vehicle collision. The child has numerous fractures and is in pain that is rated 9 or 10 on a 10-point scale. In planning care, the nurse recognizes that the indicated action is which?",
+                    options: [
+                        "Give only an opioid analgesic at this time.",
+                        "Increase dosage of analgesic until the child is adequately sedated.",
+                        "Plan a preventive schedule of pain medication around the clock.",
+                        "Give the child a clock and explain when she or he can have pain medications."
+                    ],
+                    correct: 2,
+                    rationale: "For severe postoperative pain, a preventive around the clock (ATC) schedule is necessary to prevent decreased plasma levels of medications."
+                },
+                {
+                    question: "The parents of a preterm infant in a neonatal intensive care unit are concerned about their infant experiencing pain from so many procedures. The nurse's response should be based on which characteristic about preterm infants' pain?",
+                    options: [
+                        "They may react to painful stimuli but are unable to remember the pain experience.",
+                        "They perceive and react to pain in much the same manner as children and adults.",
+                        "They do not have the cortical and subcortical centers that are needed for pain perception.",
+                        "They lack neurochemical systems associated with pain transmission and modulation."
+                    ],
+                    correct: 1,
+                    rationale: "Numerous research studies have indicated that preterm and newborn infants perceive and react to pain in the same manner as children and adults."
+                },
+                {
+                    question: "A preterm infant has just been admitted to the neonatal intensive care unit. The infant's parents ask the nurse about anesthesia and analgesia when painful procedures are necessary. What should the nurse's explanation be?",
+                    options: [
+                        "Nerve pathways of neonates are not sufficiently myelinated to transmit painful stimuli.",
+                        "The risks accompanying anesthesia and analgesia are too great to justify any possible benefit of pain relief.",
+                        "Neonates do not possess sufficiently integrated cortical function to interpret or recall pain experiences.",
+                        "Pain pathways and neurochemical systems associated with pain transmission are intact and functional in neonates."
+                    ],
+                    correct: 3,
+                    rationale: "Pain pathways and neurochemical systems associated with pain transmission are intact and functional in neonates."
+                },
+                {
+                    question: "A bone marrow aspiration and biopsy are needed on a school-age child. The most appropriate action to provide analgesia during the procedure is which?",
+                    options: [
+                        "Administer TAC (tetracaine, adrenalin, and cocaine) 15 minutes before the procedure.",
+                        "Use a combination of fentanyl and midazolam for conscious sedation.",
+                        "Apply EMLA (eutectic mixture of local anesthetics) 1 hour before the procedure.",
+                        "Apply a transdermal fentanyl (Duragesic) patch immediately before the procedure."
+                    ],
+                    correct: 1,
+                    rationale: "A bone marrow biopsy is a painful procedure. The combination of fentanyl and midazolam should be used to provide conscious sedation."
+                },
+                {
+                    question: "What is a significant common side effect that occurs with opioid administration?",
+                    options: ["Euphoria", "Diuresis", "Constipation", "Allergic reactions"],
+                    correct: 2,
+                    rationale: "Constipation is one of the most common side effects of opioid administration. Preventive strategies should be implemented to minimize this problem."
+                },
+                {
+                    question: "The nurse is caring for a child receiving a continuous intravenous (IV) low-dose infusion of morphine for severe postoperative pain. The nurse observes a slower respiratory rate, and the child cannot be aroused. The most appropriate management of this child is for the nurse to do which first?",
+                    options: [
+                        "Administer naloxone (Narcan).",
+                        "Discontinue the IV infusion.",
+                        "Discontinue morphine until the child is fully awake.",
+                        "Stimulate the child by calling his or her name, shaking gently, and asking the child to breathe deeply."
+                    ],
+                    correct: 0,
+                    rationale: "The management of opioid-induced respiratory depression includes lowering the rate of infusion and stimulating the child. If the respiratory rate is depressed and the child cannot be aroused, then IV naloxone should be administered."
+                },
+                {
+                    question: "The nurse is teaching a staff development program about levels of sedation in the pediatric population. Which statement by one of the participants should indicate a correct understanding of the teaching?",
+                    options: [
+                        "\"With minimal sedation, the patient's respiratory efforts are affected, and cognitive function is not impaired.\"",
+                        "\"With general anesthesia, the patient's airway cannot be maintained, but cardiovascular function is maintained.\"",
+                        "\"During deep sedation, the patient can be easily aroused by loud verbal commands and tactile stimulation.\"",
+                        "\"During moderate sedation, the patient responds to verbal commands but may not respond to light tactile stimulation.\""
+                    ],
+                    correct: 3,
+                    rationale: "During moderate sedation, the patient responds to verbal commands but may not respond to light tactile stimulation, cognitive function is impaired, and respiratory function is adequate."
+                },
+                {
+                    question: "The nurse is planning to administer a nonopioid for pain relief to a child. Which timing should the nurse plan so the nonopioid takes effect?",
+                    options: [
+                        "15 minutes until maximum effect",
+                        "30 minutes until maximum effect",
+                        "1 hour until maximum effect",
+                        "1 1/2 hours until maximum effect"
+                    ],
+                    correct: 2,
+                    rationale: "Nonsteroidal antiinflammatory drugs (NSAIDs) can provide safe and effective pain relief when dosed at appropriate levels with adequate frequency. Most NSAIDs take about 1 hour for effect."
+                },
+                {
+                    question: "The nurse is planning pain control for a child. Which is the advantage of administering pain medication by the intravenous (IV) bolus route?",
+                    options: [
+                        "Less expensive than oral medications",
+                        "Produces a first-pass effect through the liver",
+                        "Does not need to be administered frequently",
+                        "Provides most rapid onset of effect, usually in about 5 minutes"
+                    ],
+                    correct: 3,
+                    rationale: "The advantage of pain medication by the IV bolus route is that it provides the most rapid onset of effect, usually in about 5 minutes."
+                },
+                {
+                    question: "The nurse is teaching the parents of a child with recurrent headaches methods to modify behavior patterns that increase the risk of headache. Which statement by the parents indicates understanding the teaching?",
+                    options: [
+                        "\"We will allow the child to miss school if a headache occurs.\"",
+                        "\"We will respond matter-of-factly to requests for special attention.\"",
+                        "\"We will be sure to give much attention to our child when a headache occurs.\"",
+                        "\"We will be sure our child doesn't have to perform at a band concert if a headache occurs.\""
+                    ],
+                    correct: 1,
+                    rationale: "To modify behavior patterns, parents should avoid giving excessive attention to their child's headache and respond matter-of-factly to pain behavior and requests for special attention."
+                },
+                {
+                    question: "Which is a complication that can occur after abdominal surgery if pain is not managed?",
+                    options: ["Atelectasis", "Hypoglycemia", "Decrease in heart rate", "Increase in cardiac output"],
+                    correct: 0,
+                    rationale: "Pain associated with surgery in the abdominal region may result in pulmonary complications like atelectasis and pneumonia."
+                },
+                {
+                    question: "A burn patient is experiencing anxiety over dressing changes. Which prescription should the nurse expect to be ordered to control anxiety?",
+                    options: [
+                        "Lorazepam (Ativan)",
+                        "Oxycodone (OxyContin)",
+                        "Fentanyl (Sublimaze)",
+                        "Morphine Sulfate (Morphine)"
+                    ],
+                    correct: 0,
+                    rationale: "A benzodiazepine such as lorazepam is prescribed as an antianxiety agent."
+                },
+                {
+                    question: "A cancer patient is experiencing neuropathic cancer pain. Which prescription should the nurse expect to be ordered to control anxiety?",
+                    options: [
+                        "Lorazepam (Ativan)",
+                        "Gabapentin (Neurontin)",
+                        "Hydromorphone (Dilaudid)",
+                        "Morphine sulfate (MS Contin)"
+                    ],
+                    correct: 1,
+                    rationale: "Anticonvulsants (gabapentin, carbamazepine) have demonstrated effectiveness in neuropathic cancer pain."
+                }
+            ],
+            
+            'multiple-response': [
+                {
+                    question: "Which are components of the FLACC scale? (Select all that apply.)",
+                    options: ["Color", "Capillary refill time", "Leg position", "Facial expression", "Activity"],
+                    correct: [2, 3, 4],
+                    rationale: "Facial expression, consolability, cry, activity, and leg position are components of the FLACC scale."
+                },
+                {
+                    question: "The nurse is using the CRIES pain assessment tool on a preterm infant in the neonatal intensive care unit. Which are the components of this tool? (Select all that apply.)",
+                    options: ["Color", "Moro reflex", "Oxygen saturation", "Posture of arms and legs", "Sleeplessness", "Facial expression"],
+                    correct: [2, 4, 5],
+                    rationale: "Need for increased oxygen, crying, increased vital signs, expression, and sleeplessness are components of the CRIES pain assessment tool."
+                },
+                {
+                    question: "Which coanalgesics should the nurse expect to be prescribed for pruritus? (Select all that apply.)",
+                    options: ["Naloxone (Narcan)", "Inapsine (Droperidol)", "Hydroxyzine (Atarax)", "Promethazine (Phenergan)", "Diphenhydramine (Benadryl)"],
+                    correct: [0, 2, 4],
+                    rationale: "The coanalgesics prescribed for pruritus include naloxone, hydroxyzine, and diphenhydramine."
+                },
+                {
+                    question: "A child receiving chemotherapy is experiencing mucositis. Which prescriptions should the nurse plan to administer for initial treatment? (Select all that apply.)",
+                    options: ["Scope mouth rinse", "Listerine antiseptic mouth rinse", "Carafate suspension (Sucralfate)", "Nystatin oral suspension (Nystatin)", "Lidocaine viscous (Lidocaine hydrochloride solution)"],
+                    correct: [2, 3, 4],
+                    rationale: "Initial treatment of stomatitis includes single agents (sucralfate suspension, nystatin, and viscous lidocaine)."
+                }
+            ],
+            
+            'matching': [
+                {
+                    question: "Manipulative treatment",
+                    options: ["Vitamins", "Massage", "Reiki", "Hypnosis", "Homeopathy"],
+                    correct: 1,
+                    rationale: "Massage is classified as a manipulative treatment in complementary and alternative medicine."
+                },
+                {
+                    question: "Energy based",
+                    options: ["Vitamins", "Massage", "Reiki", "Hypnosis", "Homeopathy"],
+                    correct: 2,
+                    rationale: "Reiki is classified as an energy-based therapy in complementary and alternative medicine."
+                },
+                {
+                    question: "Alternative medical system",
+                    options: ["Vitamins", "Massage", "Reiki", "Hypnosis", "Homeopathy"],
+                    correct: 4,
+                    rationale: "Homeopathy is classified as an alternative medical system."
+                },
+                {
+                    question: "Mind-body technique",
+                    options: ["Vitamins", "Massage", "Reiki", "Hypnosis", "Homeopathy"],
+                    correct: 3,
+                    rationale: "Hypnosis is classified as a mind-body technique in complementary and alternative medicine."
+                },
+                {
+                    question: "Biologically based",
+                    options: ["Vitamins", "Massage", "Reiki", "Hypnosis", "Homeopathy"],
+                    correct: 0,
+                    rationale: "Vitamins are classified as biologically based therapies in complementary and alternative medicine."
+                }
+            ],
+            
+            'completion': [
+                {
+                    question: "A health care provider prescribes promethazine (Phenergan), 9 mg IV every 6 to 8 hours as needed for pruritus. The medication label states: Promethazine 25 mg/1 mL. How many milliliters will the nurse prepare?",
+                    options: ["0.25 mL", "0.36 mL", "0.40 mL", "0.50 mL"],
+                    correct: 1,
+                    rationale: "9 mg / 25 mg × 1 mL = 0.36 mL"
+                },
+                {
+                    question: "A health care provider prescribes diphenhydramine (Benadryl), 1 mg/kg PO every 4 to 6 hours as needed for pruritus. The child weighs 10 kg. The medication label states: Diphenhydramine 12.5 mg/5 mL. How many milliliters will the nurse prepare?",
+                    options: ["2 mL", "4 mL", "5 mL", "10 mL"],
+                    correct: 1,
+                    rationale: "Dose = 1 mg/kg × 10 kg = 10 mg; 10 mg / 12.5 mg × 5 mL = 4 mL"
+                },
+                {
+                    question: "A health care provider prescribes hydroxyzine (Atarax), 0.6 mg/kg PO every 4 to 6 hours as needed for pruritus. The child weighs 20 kg. The medication label states: Hydroxyzine 10 mg/5 mL. How many milliliters will the nurse prepare?",
+                    options: ["5 mL", "6 mL", "7.5 mL", "10 mL"],
+                    correct: 1,
+                    rationale: "Dose = 0.6 mg/kg × 20 kg = 12 mg; 12 mg / 10 mg × 5 mL = 6 mL"
+                },
+                {
+                    question: "A child receiving morphine sulfate is experiencing respiratory depression. A health care provider prescribes naloxone (Narcan), 0.5 mcg/kg IV in 2-minute increments. The child weighs 40 kg. The medication label states: Naloxone 400 mcg/1 mL. How many milliliters will the nurse prepare?",
+                    options: ["0.05 mL", "0.10 mL", "0.20 mL", "0.50 mL"],
+                    correct: 0,
+                    rationale: "Dose = 0.5 mcg/kg × 40 kg = 20 mcg; 20 mcg / 400 mcg × 1 mL = 0.05 mL"
+                },
+                {
+                    question: "A health care provider prescribes haloperidol (Haldol), 0.15 mg/kg IV every 4 to 6 hours as needed for confusion. The child weighs 30 kg. The medication label states: Haloperidol 2 mg/1 mL. How many milliliters will the nurse prepare?",
+                    options: ["1.5 mL", "2.3 mL", "3.0 mL", "4.5 mL"],
+                    correct: 1,
+                    rationale: "Dose = 0.15 mg/kg × 30 kg = 4.5 mg; 4.5 mg / 2 mg × 1 mL = 2.25 mL ≈ 2.3 mL"
+                },
+                {
+                    question: "A health care provider prescribes Kytril (granisetron), 10 mcg/kg IV every 4 to 6 hours as needed for nausea. The child weighs 15 kg. The medication label states: Kytril 100 mcg/1 mL. How many milliliters will the nurse prepare?",
+                    options: ["1.0 mL", "1.5 mL", "2.0 mL", "2.5 mL"],
+                    correct: 1,
+                    rationale: "Dose = 10 mcg/kg × 15 kg = 150 mcg; 150 mcg / 100 mcg × 1 mL = 1.5 mL"
+                },
+                {
+                    question: "A health care provider prescribes OxyContin (oxycodone), 3 mg PO every 4 to 6 hours as needed for pain. The medication label states: OxyContin 5 mg/1 mL. How many milliliters will the nurse prepare?",
+                    options: ["0.4 mL", "0.6 mL", "0.8 mL", "1.0 mL"],
+                    correct: 1,
+                    rationale: "3 mg / 5 mg × 1 mL = 0.6 mL"
+                },
+                {
+                    question: "A health care provider prescribes acetaminophen (Tylenol), 10 mg/kg/dose PO every 4 to 6 hours as needed for pain. The infant weighs 8 kg. The medication label states: Acetaminophen 80 mg/0.8 mL. How many milliliters will the nurse prepare?",
+                    options: ["0.6 mL", "0.8 mL", "1.0 mL", "1.2 mL"],
+                    correct: 1,
+                    rationale: "Dose = 10 mg/kg × 8 kg = 80 mg; 80 mg / 80 mg × 0.8 mL = 0.8 mL"
+                },
+                {
+                    question: "A health care provider prescribes naproxen (Naprosyn), 7 mg/kg PO every 12 hours for pain. The child weighs 25 kg. The medication label states: Naproxen 125 mg/5 mL. How many milliliters will the nurse prepare?",
+                    options: ["5 mL", "7 mL", "8 mL", "9 mL"],
+                    correct: 1,
+                    rationale: "Dose = 7 mg/kg × 25 kg = 175 mg; 175 mg / 125 mg × 5 mL = 7 mL"
+                },
+                {
+                    question: "A health care provider prescribes choline magnesium trisalicylate (Triilsate), 15 mg/kg PO every 8 to 12 hours as needed for pain. The child weighs 10 kg. The medication label states: Choline magnesium trisalicylate 500 mg/5 mL. How many milliliters will the nurse prepare?",
+                    options: ["1.0 mL", "1.5 mL", "2.0 mL", "2.5 mL"],
+                    correct: 1,
+                    rationale: "Dose = 15 mg/kg × 10 kg = 150 mg; 150 mg / 500 mg × 5 mL = 1.5 mL"
+                },
+                {
+                    question: "A health care provider prescribes ibuprofen (Motrin), 5 mg/kg PO every 6 to 8 hours as needed for pain. The child weighs 8 kg. The medication label states: Ibuprofen 100 mg/5 mL. How many milliliters will the nurse prepare?",
+                    options: ["1 mL", "2 mL", "3 mL", "4 mL"],
+                    correct: 1,
+                    rationale: "Dose = 5 mg/kg × 8 kg = 40 mg; 40 mg / 100 mg × 5 mL = 2 mL"
+                }
+            ],
+            
+            'all': []
+        };
+
+        // Combine all questions for the 'all' section
+        sections['all'] = [
+            ...sections['multiple-choice'].map(q => ({...q, section: 'multiple-choice'})),
+            ...sections['multiple-response'].map(q => ({...q, section: 'multiple-response'})),
+            ...sections['matching'].map(q => ({...q, section: 'matching', isMatching: true})),
+            ...sections['completion'].map(q => ({...q, section: 'completion'}))
+        ];
+
+        let currentSection = 'multiple-choice';
+        let currentQuestion = 0;
+        let selectedOption = null;
+        let selectedOptions = [];
+        let isSubmitted = false;
+        let answers = {
+            'multiple-choice': Array(sections['multiple-choice'].length).fill(null),
+            'multiple-response': Array(sections['multiple-response'].length).fill({selected: [], submitted: false}),
+            'matching': Array(sections['matching'].length).fill(null),
+            'completion': Array(sections['completion'].length).fill(null),
+            'all': Array(sections['all'].length).fill(null)
+        };
+
+        function setSection(section) {
+            currentSection = section;
+            currentQuestion = 0;
+            selectedOption = null;
+            selectedOptions = [];
+            isSubmitted = false;
+            
+            document.querySelectorAll('.section-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            loadQuestion();
+        }
+
+        function isMultipleResponseQuestion() {
+            if (currentSection === 'all') {
+                const questionData = getCurrentQuestionData();
+                return questionData?.section === 'multiple-response' || Array.isArray(questionData?.correct);
+            }
+            return currentSection === 'multiple-response';
+        }
+
+        function isMatchingSection() {
+            if (currentSection === 'all') {
+                const questionData = getCurrentQuestionData();
+                return questionData?.isMatching || questionData?.section === 'matching';
+            }
+            return currentSection === 'matching';
+        }
+
+        function isCompletionSection() {
+            if (currentSection === 'all') {
+                const questionData = getCurrentQuestionData();
+                return questionData?.section === 'completion';
+            }
+            return currentSection === 'completion';
+        }
+
+        function getCurrentQuestionData() {
+            if (currentSection === 'all') {
+                return sections['all'][currentQuestion] || null;
+            } else {
+                return sections[currentSection][currentQuestion];
+            }
+        }
+
+        function loadQuestion() {
+            const questionData = getCurrentQuestionData();
+            
+            if (!questionData) return;
+            
+            const isMatching = isMatchingSection();
+            const isMultipleResponse = isMultipleResponseQuestion();
+            const isCompletion = isCompletionSection();
+            
+            // Update UI elements visibility
+            document.getElementById('matchingContainer').style.display = isMatching ? 'flex' : 'none';
+            document.getElementById('options').style.display = isMatching ? 'none' : 'flex'; // Changed: Show options for completion too
+            document.getElementById('multipleSelectIndicator').style.display = isMultipleResponse ? 'block' : 'none';
+            document.getElementById('multipleSelectInstructions').style.display = isMultipleResponse ? 'block' : 'none';
+            document.getElementById('cancelBtn').classList.remove('show');
+            document.getElementById('submitBtn').style.display = isMultipleResponse ? 'flex' : 'none';
+            document.getElementById('questionNumber').textContent = currentQuestion + 1;
+            
+            let totalQuestions = getTotalQuestions();
+            
+            const progress = ((currentQuestion + 1) / totalQuestions) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+            document.getElementById('counter').textContent = `${currentQuestion + 1}/${totalQuestions}`;
+            
+            if (isMatching) {
+                document.getElementById('matchingQuestion').textContent = questionData.question;
+                loadMatchingOptions(questionData);
+            } else {
+                document.getElementById('question').textContent = questionData.question;
+                loadOptions(questionData);
+            }
+            
+            document.getElementById('feedback').style.display = 'none';
+            document.getElementById('rationale').classList.remove('show');
+            
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            const isLastQuestion = currentQuestion >= totalQuestions - 1;
+            document.getElementById('nextBtn').textContent = isLastQuestion ? 'Finish ➡️' : 'Next ➡️';
+            document.getElementById('nextBtn').disabled = true;
+            
+            // Load saved answer state
+            const storedAnswer = answers[currentSection][currentQuestion];
+            if (storedAnswer !== null && storedAnswer !== undefined) {
+                if (isMultipleResponse) {
+                    selectedOptions = storedAnswer.selected || [];
+                    isSubmitted = storedAnswer.submitted || false;
+                    
+                    if (isSubmitted) {
+                        showFeedbackForMultipleResponse(questionData);
+                        document.getElementById('nextBtn').disabled = false;
+                        document.getElementById('submitBtn').disabled = true;
+                    } else {
+                        highlightSelectedOptionsForMultipleResponse();
+                        document.getElementById('submitBtn').disabled = selectedOptions.length === 0;
+                        document.getElementById('nextBtn').disabled = false;
+                        if (selectedOptions.length > 0) {
+                            document.getElementById('cancelBtn').classList.add('show');
+                        }
+                    }
+                } else if (isMatching) {
+                    selectedOption = storedAnswer;
+                    highlightMatchingOption(storedAnswer, questionData);
+                    showFeedback(storedAnswer, questionData);
+                    document.getElementById('nextBtn').disabled = false;
+                    document.getElementById('cancelBtn').classList.add('show');
+                } else {
+                    // For completion and multiple-choice
+                    selectedOption = storedAnswer;
+                    highlightSelectedOption(storedAnswer, questionData);
+                    showFeedback(storedAnswer, questionData);
+                    document.getElementById('nextBtn').disabled = false;
+                    document.getElementById('cancelBtn').classList.add('show');
+                }
+            } else {
+                selectedOption = null;
+                selectedOptions = [];
+                isSubmitted = false;
+                if (isMultipleResponse) {
+                    document.getElementById('submitBtn').disabled = true;
+                }
+            }
+        }
+
+        function loadMatchingOptions(questionData) {
+            const matchingOptions = document.getElementById('matchingOptions');
+            matchingOptions.innerHTML = '';
+            
+            if (questionData.options) {
+                questionData.options.forEach((option, index) => {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.className = 'matching-option';
+                    optionDiv.textContent = `${String.fromCharCode(65 + index)}) ${option}`;
+                    optionDiv.onclick = () => selectMatchingOption(index, questionData);
+                    matchingOptions.appendChild(optionDiv);
+                });
+                
+                const storedAnswer = answers[currentSection][currentQuestion];
+                if (storedAnswer !== null && storedAnswer !== undefined) {
+                    highlightMatchingOption(storedAnswer, questionData);
+                }
+            }
+        }
+
+        function loadOptions(questionData) {
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+            
+            if (questionData.options && questionData.options.length > 0) {
+                questionData.options.forEach((option, index) => {
+                    const optionElement = document.createElement('div');
+                    optionElement.className = 'option';
+                    optionElement.innerHTML = `
+                        <div class="option-letter">${String.fromCharCode(65 + index)}</div>
+                        <div class="option-text">${option}</div>
+                    `;
+                    optionElement.onclick = () => selectOption(index, questionData);
+                    optionsContainer.appendChild(optionElement);
+                });
+            } else {
+                // Fallback if no options are provided
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                optionElement.innerHTML = `
+                    <div class="option-letter">A</div>
+                    <div class="option-text">No options available for this question</div>
+                `;
+                optionsContainer.appendChild(optionElement);
+            }
+        }
+
+        function selectOption(index, questionData) {
+            if (!questionData) questionData = getCurrentQuestionData();
+            
+            if (isMultipleResponseQuestion()) {
+                handleMultipleResponseSelect(index, questionData);
+            } else {
+                handleSingleSelect(index, questionData);
+            }
+        }
+
+        function handleSingleSelect(index, questionData) {
+            if (!questionData) questionData = getCurrentQuestionData();
+            
+            answers[currentSection][currentQuestion] = index;
+            selectedOption = index;
+            
+            highlightSelectedOption(index, questionData);
+            showFeedback(index, questionData);
+            document.getElementById('nextBtn').disabled = false;
+            document.getElementById('cancelBtn').classList.add('show');
+        }
+
+        function handleMultipleResponseSelect(index, questionData) {
+            if (!questionData) questionData = getCurrentQuestionData();
+            if (isSubmitted) return;
+            
+            const optionIndex = selectedOptions.indexOf(index);
+            if (optionIndex === -1) {
+                selectedOptions.push(index);
+            } else {
+                selectedOptions.splice(optionIndex, 1);
+            }
+            
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, i) => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+                if (selectedOptions.includes(i)) {
+                    option.classList.add('selected');
+                }
+            });
+            
+            // Save the selection
+            if (!answers[currentSection][currentQuestion]) {
+                answers[currentSection][currentQuestion] = {selected: [], submitted: false};
+            }
+            answers[currentSection][currentQuestion].selected = selectedOptions;
+            answers[currentSection][currentQuestion].submitted = false;
+            
+            document.getElementById('submitBtn').disabled = selectedOptions.length === 0;
+            document.getElementById('nextBtn').disabled = false;
+            document.getElementById('cancelBtn').classList.toggle('show', selectedOptions.length > 0);
+        }
+
+        function selectMatchingOption(index, questionData) {
+            if (!questionData) questionData = getCurrentQuestionData();
+            
+            answers[currentSection][currentQuestion] = index;
+            selectedOption = index;
+            
+            // Clear all classes first
+            document.querySelectorAll('.matching-option').forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            const selectedOptionElement = document.querySelectorAll('.matching-option')[index];
+            selectedOptionElement.classList.add('selected');
+            
+            if (index === questionData.correct) {
+                selectedOptionElement.classList.add('correct');
+            } else {
+                selectedOptionElement.classList.add('incorrect');
+                // Also show the correct answer
+                document.querySelectorAll('.matching-option')[questionData.correct].classList.add('correct');
+            }
+            
+            showFeedback(index, questionData);
+            document.getElementById('nextBtn').disabled = false;
+            document.getElementById('cancelBtn').classList.add('show');
+        }
+
+        function highlightMatchingOption(index, questionData) {
+            if (!questionData) questionData = getCurrentQuestionData();
+            
+            const options = document.querySelectorAll('.matching-option');
+            
+            options.forEach((option, i) => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+                if (i === index) {
+                    option.classList.add('selected');
+                    if (i === questionData.correct) {
+                        option.classList.add('correct');
+                    } else {
+                        option.classList.add('incorrect');
+                        options[questionData.correct].classList.add('correct');
+                    }
+                }
+            });
+        }
+
+        function highlightSelectedOption(index, questionData) {
+            if (!questionData) questionData = getCurrentQuestionData();
+            
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach((option, i) => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+                
+                if (i === index) {
+                    if (i === questionData.correct) {
+                        option.classList.add('correct');
+                    } else {
+                        option.classList.add('incorrect');
+                        if (questionData.correct !== undefined) {
+                            options[questionData.correct].classList.add('correct');
+                        }
+                    }
+                }
+            });
+        }
+
+        function highlightSelectedOptionsForMultipleResponse() {
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach((option, i) => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+                if (selectedOptions.includes(i)) {
+                    option.classList.add('selected');
+                }
+            });
+        }
+
+        function submitAnswer() {
+            if (selectedOptions.length === 0) return;
+            
+            isSubmitted = true;
+            
+            if (!answers[currentSection][currentQuestion]) {
+                answers[currentSection][currentQuestion] = {selected: [], submitted: false};
+            }
+            answers[currentSection][currentQuestion].submitted = true;
+            
+            const questionData = getCurrentQuestionData();
+            showFeedbackForMultipleResponse(questionData);
+            document.getElementById('nextBtn').disabled = false;
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('cancelBtn').classList.remove('show');
+        }
+
+        function showFeedback(index, questionData) {
+            if (!questionData) questionData = getCurrentQuestionData();
+            
+            const feedback = document.getElementById('feedback');
+            const feedbackIcon = document.getElementById('feedbackIcon');
+            const feedbackText = document.getElementById('feedbackText');
+            const rationale = document.getElementById('rationale');
+            const rationaleText = document.getElementById('rationaleText');
+            
+            if (index === questionData.correct) {
+                feedback.className = 'feedback correct';
+                feedbackIcon.textContent = '✅';
+                feedbackText.textContent = 'Correct! Well done.';
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedbackIcon.textContent = '❌';
+                const correctLetter = String.fromCharCode(65 + questionData.correct);
+                feedbackText.textContent = `Incorrect. Correct: ${correctLetter}`;
+            }
+            
+            feedback.style.display = 'flex';
+            rationaleText.textContent = questionData.rationale;
+            rationale.classList.add('show');
+        }
+
+        function showFeedbackForMultipleResponse(questionData) {
+            if (!questionData) questionData = getCurrentQuestionData();
+            
+            const feedback = document.getElementById('feedback');
+            const feedbackIcon = document.getElementById('feedbackIcon');
+            const feedbackText = document.getElementById('feedbackText');
+            const rationale = document.getElementById('rationale');
+            const rationaleText = document.getElementById('rationaleText');
+            
+            const allCorrectSelected = questionData.correct.every(c => selectedOptions.includes(c));
+            const noIncorrectSelected = selectedOptions.every(s => questionData.correct.includes(s));
+            
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, i) => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+                if (questionData.correct.includes(i)) {
+                    option.classList.add('correct');
+                }
+                if (selectedOptions.includes(i) && !questionData.correct.includes(i)) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            if (allCorrectSelected && noIncorrectSelected) {
+                feedback.className = 'feedback correct';
+                feedbackIcon.textContent = '✅';
+                feedbackText.textContent = 'Perfect! All correct selected.';
+            } else if (allCorrectSelected && !noIncorrectSelected) {
+                feedback.className = 'feedback incorrect';
+                feedbackIcon.textContent = '⚠️';
+                feedbackText.textContent = 'Almost! All correct + some incorrect.';
+            } else if (!allCorrectSelected && noIncorrectSelected) {
+                feedback.className = 'feedback incorrect';
+                feedbackIcon.textContent = '⚠️';
+                feedbackText.textContent = 'Partially correct! Some correct, missed others.';
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedbackIcon.textContent = '❌';
+                feedbackText.textContent = 'Incorrect. Missed correct & selected incorrect.';
+            }
+            
+            feedback.style.display = 'flex';
+            rationaleText.textContent = questionData.rationale;
+            rationale.classList.add('show');
+        }
+
+        function cancelSelection() {
+            const questionData = getCurrentQuestionData();
+            
+            if (isMultipleResponseQuestion()) {
+                selectedOptions = [];
+                isSubmitted = false;
+                
+                const options = document.querySelectorAll('.option');
+                options.forEach(option => {
+                    option.classList.remove('selected', 'correct', 'incorrect');
+                });
+                
+                if (answers[currentSection][currentQuestion]) {
+                    answers[currentSection][currentQuestion] = {selected: [], submitted: false};
+                }
+                
+                document.getElementById('nextBtn').disabled = true;
+                document.getElementById('submitBtn').disabled = true;
+                document.getElementById('feedback').style.display = 'none';
+                document.getElementById('rationale').classList.remove('show');
+                document.getElementById('cancelBtn').classList.remove('show');
+            } else if (isMatchingSection()) {
+                answers[currentSection][currentQuestion] = null;
+                selectedOption = null;
+                
+                document.querySelectorAll('.matching-option').forEach(option => {
+                    option.classList.remove('selected', 'correct', 'incorrect');
+                });
+                
+                document.getElementById('feedback').style.display = 'none';
+                document.getElementById('rationale').classList.remove('show');
+                document.getElementById('nextBtn').disabled = true;
+                document.getElementById('cancelBtn').classList.remove('show');
+            } else {
+                // For completion and multiple-choice
+                answers[currentSection][currentQuestion] = null;
+                selectedOption = null;
+                
+                const options = document.querySelectorAll('.option');
+                options.forEach(option => {
+                    option.classList.remove('selected', 'correct', 'incorrect');
+                });
+                
+                document.getElementById('feedback').style.display = 'none';
+                document.getElementById('rationale').classList.remove('show');
+                document.getElementById('nextBtn').disabled = true;
+                document.getElementById('cancelBtn').classList.remove('show');
+            }
+        }
+
+        function nextCard() {
+            const totalQuestions = getTotalQuestions();
+            
+            if (currentQuestion < totalQuestions - 1) {
+                currentQuestion++;
+                selectedOption = null;
+                selectedOptions = [];
+                isSubmitted = false;
+                loadQuestion();
+            } else {
+                let correctCount = 0;
+                let totalAnswered = 0;
+                
+                Object.keys(answers).forEach(section => {
+                    answers[section].forEach((answer, index) => {
+                        if (answer !== null && answer !== undefined) {
+                            totalAnswered++;
+                            const questionData = getQuestionData(section, index);
+                            
+                            if (Array.isArray(questionData?.correct)) {
+                                if (answer.submitted && Array.isArray(answer.selected)) {
+                                    const allCorrect = questionData.correct.every(c => answer.selected.includes(c));
+                                    const noIncorrect = answer.selected.every(s => questionData.correct.includes(s));
+                                    if (allCorrect && noIncorrect) correctCount++;
+                                }
+                            } else if (questionData?.isMatching || questionData?.section === 'matching' || questionData?.section === 'completion') {
+                                if (answer === questionData.correct) correctCount++;
+                            } else {
+                                if (answer === questionData?.correct) correctCount++;
+                            }
+                        }
+                    });
+                });
+                
+                alert(`Quiz completed!\n\nAnswered: ${totalAnswered}\nCorrect: ${correctCount}\n\nClick OK to restart.`);
+                
+                currentSection = 'multiple-choice';
+                currentQuestion = 0;
+                selectedOption = null;
+                selectedOptions = [];
+                isSubmitted = false;
+                answers = {
+                    'multiple-choice': Array(sections['multiple-choice'].length).fill(null),
+                    'multiple-response': Array(sections['multiple-response'].length).fill({selected: [], submitted: false}),
+                    'matching': Array(sections['matching'].length).fill(null),
+                    'completion': Array(sections['completion'].length).fill(null),
+                    'all': Array(sections['all'].length).fill(null)
+                };
+                
+                setSection('multiple-choice');
+            }
+        }
+
+        function previousCard() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                const storedAnswer = answers[currentSection][currentQuestion];
+                
+                if (isMultipleResponseQuestion()) {
+                    selectedOptions = storedAnswer?.selected || [];
+                    isSubmitted = storedAnswer?.submitted || false;
+                } else {
+                    selectedOption = storedAnswer;
+                }
+                
+                loadQuestion();
+            }
+        }
+
+        function getTotalQuestions() {
+            if (currentSection === 'all') {
+                return sections['all'].length;
+            } else {
+                return sections[currentSection].length;
+            }
+        }
+
+        function getQuestionData(section, index) {
+            if (section === 'all') {
+                return sections['all'][index];
+            } else {
+                return sections[section][index];
+            }
+        }
+
+        // Initialize
+        setSection('multiple-choice');
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(event) {
+            if (event.key >= '1' && event.key <= '5') {
+                const index = parseInt(event.key) - 1;
+                const questionData = getCurrentQuestionData();
+                if (!isMatchingSection()) {
+                    selectOption(index, questionData);
+                }
+            } else if (event.key >= 'a' && event.key <= 'e') {
+                const index = event.key.charCodeAt(0) - 97;
+                const questionData = getCurrentQuestionData();
+                if (!isMatchingSection()) {
+                    selectOption(index, questionData);
+                }
+            } else if (event.key === 'Enter' && isMultipleResponseQuestion()) {
+                if (selectedOptions.length > 0 && !isSubmitted) {
+                    submitAnswer();
+                }
+            } else if (event.key === 'ArrowLeft') {
+                if (!document.getElementById('prevBtn').disabled) {
+                    previousCard();
+                }
+            } else if (event.key === 'ArrowRight') {
+                if (!document.getElementById('nextBtn').disabled) {
+                    nextCard();
+                }
+            } else if (event.key === ' ' || event.key === 'Spacebar') {
+                if (!document.getElementById('nextBtn').disabled && !isMultipleResponseQuestion()) {
+                    nextCard();
+                }
+            } else if (event.key === 'Escape') {
+                cancelSelection();
+            }
+        });
+    </script>
+</body>
+</html>
